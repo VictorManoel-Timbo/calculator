@@ -1,4 +1,6 @@
+
 import prompt from 'prompt-sync'
+
 
 interface Calculator{
     add(x:number, y:number):number;
@@ -6,6 +8,7 @@ interface Calculator{
     mult(x:number, y:number):number;
     div(x:number, y:number):number|string;
 }
+
 
 function checkNum(num1:number, num2:number){
     try {
@@ -21,6 +24,9 @@ function checkNum(num1:number, num2:number){
 }
 
 let calculator: Calculator = {
+
+let calculadora: Calculator = {
+
     add(x:number, y:number){
         return x + y;
     },
@@ -35,6 +41,7 @@ let calculator: Calculator = {
             return "Não existe divisão por 0";
         }else{ return x / y}
     }
+
 };
 
 let pt = prompt();
@@ -123,3 +130,6 @@ do{
     }
 
 }while(exit != 0);
+
+};
+
