@@ -9,6 +9,11 @@
   "author": "Victor Manoel",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.14.2",
+    "prompt-sync": "^4.2.0",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/prompt-sync": "^4.2.3"
   }
 }
