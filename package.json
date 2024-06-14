@@ -1,0 +1,14 @@
+{
+  "name": "calculatorproject",
+  "version": "1.0.0",
+  "description": "Projeto de calculadora",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Victor Manoel",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^10.0.0"
+  }
+}
