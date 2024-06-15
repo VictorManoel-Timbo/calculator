@@ -24,9 +24,7 @@ function checkNum(num1:number, num2:number){
 }
 
 let calculator: Calculator = {
-
-let calculadora: Calculator = {
-
+  
     add(x:number, y:number){
         return x + y;
     },
@@ -128,8 +126,6 @@ do{
     } catch (e) {
         console.log("ERRO! Operador invalido.");
     }
-
+  
 }while(exit != 0);
-
-};
 
