@@ -1,0 +1,19 @@
+{
+  "name": "calculatorproject",
+  "version": "1.0.0",
+  "description": "Projeto de calculadora",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Victor Manoel",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.14.2",
+    "prompt-sync": "^4.2.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/prompt-sync": "^4.2.3"
+  }
+}
