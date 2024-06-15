@@ -25,8 +25,6 @@ function checkNum(num1:number, num2:number){
 
 let calculator: Calculator = {
 
-let calculadora: Calculator = {
-
     add(x:number, y:number){
         return x + y;
     },
@@ -130,6 +128,3 @@ do{
     }
 
 }while(exit != 0);
-
-};
-
