@@ -4,120 +4,203 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var prompt_sync_1 = __importDefault(require("prompt-sync"));
-function checkNum(num1, num2) {
-    try {
-        if (!isNaN(num1) && !isNaN(num2)) {
-            return true;
+var Operator;
+(function (Operator) {
+    Operator[Operator["addiction"] = 1] = "addiction";
+    Operator[Operator["subtraction"] = 2] = "subtraction";
+    Operator[Operator["multiplication"] = 3] = "multiplication";
+    Operator[Operator["division"] = 4] = "division";
+})(Operator || (Operator = {}));
+var Calculator = /** @class */ (function () {
+    function Calculator() {
+    }
+    Calculator.prototype.calculate = function (number1, number2, operator) {
+        if (operator === 1) {
+            return number1 + number2;
+        }
+        else if (operator === 2) {
+            return number1 - number2;
+        }
+        else if (operator === 3) {
+            return number1 * number2;
         }
         else {
-            throw new TypeError();
+            if (number2 == 0) {
+                return "#ERROR#";
+            }
+            else {
+                return number1 / number2;
+            }
         }
-    }
-    catch (e) {
-        console.log("Não foi digitado um número.");
-        return false;
-    }
-}
-var calculator = {
-    add: function (x, y) {
-        return x + y;
-    },
-    sub: function (x, y) {
-        return x - y;
-    },
-    mult: function (x, y) {
-        return x * y;
-    },
-    div: function (x, y) {
-        if (y == 0) {
-            return "Não existe divisão por 0";
+    };
+    Calculator.prototype.entryNumbers = function () {
+        var numbers = [];
+        var number = 0;
+        do {
+            try {
+                var inputNumber = promptInput("Digite um numero: ");
+                number = Number(this.validateNumber(inputNumber));
+                if (!isNaN(number)) {
+                    numbers[numbers.length] = number;
+                }
+                else {
+                    throw new TypeError();
+                }
+            }
+            catch (e) {
+                console.log("Não foi digitado um número.");
+            }
+        } while (numbers.length < 2);
+        return numbers;
+    };
+    Calculator.prototype.validateNumber = function (value) {
+        var signal = '';
+        var validValue = '';
+        for (var id = 0; id < value.length; id++) {
+            if (!(value[id] === '+' || value[id] === '-' || value[id] === '*' || value[id] === '/')) {
+                validValue += value[id];
+            }
+            else {
+                if (validValue !== '') {
+                    break;
+                }
+                else {
+                    signal += value[id];
+                }
+            }
         }
-        else {
-            return x / y;
+        if (signal.includes('-')) {
+            validValue = '-' + validValue;
         }
-    }
-};
-var pt = (0, prompt_sync_1.default)();
+        if (signal.length > 1) {
+            console.log("Foram digitados dados estranhos, será recebido somente o primeiro dado valido digitado.\nDado recebido = " + validValue);
+        }
+        return validValue;
+    };
+    return Calculator;
+}());
+var calculator = new Calculator();
+var operator = Operator;
+var promptInput = (0, prompt_sync_1.default)();
 var exit = 1;
 do {
-    var num1 = void 0;
-    var num2 = void 0;
+    var numbers = void 0;
     console.log("----Calculadora----");
     try {
-        var inputOp = pt("Digite a operação(1-soma,2-subtração,3-multiplicação,4-divisão, 0-Sair): ");
-        var op = Number(inputOp);
-        switch (op) {
-            case 0: {
-                exit = 0;
-                break;
-            }
-            case 1: {
-                var inputNum = pt("Digite um numero: ");
-                num1 = Number(inputNum);
-                inputNum = pt("Digite outro numero: ");
-                num2 = Number(inputNum);
-                if (checkNum(num1, num2)) {
-                    console.log("Resultado = ", calculator.add(num1, num2));
+        var inputOperator = promptInput("Digite a operação(1-soma,2-subtração,3-multiplicação,4-divisão, 0-Sair): ");
+        var operatorValue = Number(inputOperator);
+        switch (operatorValue) {
+            case 0:
+                {
+                    exit = 0;
+                    break;
                 }
-                else {
-                    console.log("Não foi possivel realizar o calculo.");
+            case operator.addiction:
+                {
+                    numbers = calculator.entryNumbers();
+                    console.log("Resultado = ", calculator.calculate(numbers[0], numbers[1], operator.addiction));
+                    exit = Number(promptInput("Deseja continuar?(1-sim, 0-não) "));
+                    break;
                 }
-                inputNum = pt("Deseja continuar?(1-sim, 0-não) ");
-                exit = Number(inputNum);
-                break;
-            }
-            case 2: {
-                var inputNum = pt("Digite um numero: ");
-                num1 = Number(inputNum);
-                inputNum = pt("Digite outro numero: ");
-                num2 = Number(inputNum);
-                if (checkNum(num1, num2)) {
-                    console.log("Resultado = ", calculator.sub(num1, num2));
+            case operator.subtraction:
+                {
+                    numbers = calculator.entryNumbers();
+                    console.log("Resultado = ", calculator.calculate(numbers[0], numbers[1], operator.subtraction));
+                    exit = Number(promptInput("Deseja continuar?(1-sim, 0-não) "));
+                    break;
                 }
-                else {
-                    console.log("Não foi possivel realizar o calculo.");
+            case operator.multiplication:
+                {
+                    numbers = calculator.entryNumbers();
+                    console.log("Resultado = ", calculator.calculate(numbers[0], numbers[1], operator.multiplication));
+                    exit = Number(promptInput("Deseja continuar?(1-sim, 0-não) "));
+                    break;
                 }
-                inputNum = pt("Deseja continuar?(1-sim, 0-não) ");
-                exit = Number(inputNum);
-                break;
-            }
-            case 3: {
-                var inputNum = pt("Digite um numero: ");
-                num1 = Number(inputNum);
-                inputNum = pt("Digite outro numero: ");
-                num2 = Number(inputNum);
-                if (checkNum(num1, num2)) {
-                    console.log("Resultado = ", calculator.mult(num1, num2));
+            case operator.division:
+                {
+                    numbers = calculator.entryNumbers();
+                    console.log("Resultado = ", calculator.calculate(numbers[0], numbers[1], operator.division));
+                    exit = Number(promptInput("Deseja continuar?(1-sim, 0-não) "));
+                    break;
                 }
-                else {
-                    console.log("Não foi possivel realizar o calculo.");
+            default:
+                {
+                    throw new TypeError();
+                    break;
                 }
-                inputNum = pt("Deseja continuar?(1-sim, 0-não) ");
-                exit = Number(inputNum);
-                break;
-            }
-            case 4: {
-                var inputNum = pt("Digite um numero: ");
-                num1 = Number(inputNum);
-                inputNum = pt("Digite outro numero: ");
-                num2 = Number(inputNum);
-                if (checkNum(num1, num2)) {
-                    console.log("Resultado = ", calculator.div(num1, num2));
-                }
-                else {
-                    console.log("Não foi possivel realizar o calculo.");
-                }
-                inputNum = pt("Deseja continuar?(1-sim, 0-não) ");
-                exit = Number(inputNum);
-                break;
-            }
-            default: {
-                throw new TypeError();
-                break;
-            }
         }
     }
     catch (e) {
         console.log("ERRO! Operador invalido.");
     }
 } while (exit != 0);
+//----------------------------------------------------------------------------------------------------------------------//
+/*function entryNumbers():number[]
+{
+
+    let numbers: number[] = []
+    let number: number = 0
+
+    do
+    {
+        try
+        {
+            let inputNumber = promptInput("Digite um numero: ");
+            number = Number(validateNumber(inputNumber));
+
+            if(!isNaN(number))
+            {
+                numbers[numbers.length] = number;
+                //console.log(numbers.length + " | " + numbers[numbers.length - 1]);
+            }else
+            {
+                throw new TypeError();
+            }
+        }
+        catch (e)
+        {
+            console.log("Não foi digitado um número.");
+        
+        }
+    }
+    while(numbers.length < 2);
+
+    return numbers;
+}
+
+function validateNumber(value: string){
+
+    let signal: string = '';
+    let validValue: string = '';
+     
+    for(let id = 0;id < value.length;id++){
+
+        if(!(value[id] === '+' || value[id] === '-' || value[id] === '*' || value[id] === '/'))
+        {
+            validValue += value[id];
+        }
+        else
+        {
+            if(validValue !== '')
+            {
+                break;
+            }
+            else
+            {
+                signal += value[id];
+            }
+        }
+
+    }
+
+    if(signal.includes('-'))
+    {
+        validValue = '-' + validValue;
+    }
+
+    if(signal.length > 1){
+        console.log("Foram digitados dados estranhos, será recebido somente o primeiro dado valido digitado.\nDado recebido = " + validValue);
+    }
+
+    return validValue;
+}*/
